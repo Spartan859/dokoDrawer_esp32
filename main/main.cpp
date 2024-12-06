@@ -68,10 +68,10 @@ void setup(void)
     // bsp_spiffs_mount();
     i2s.setPins(INMP441_BCLK, INMP441_WS, -1, INMP441_DIN);
     i2s.setTimeout(1000);
-    i2s.begin(I2S_MODE_STD, 16000, I2S_DATA_BIT_WIDTH_16BIT, I2S_SLOT_MODE_STEREO);
+    i2s.begin(I2S_MODE_STD, 16000, I2S_DATA_BIT_WIDTH_16BIT, I2S_SLOT_MODE_MONO);
 
     ESP_SR.onEvent(onSrEvent);
-    ESP_SR.begin(i2s, sr_commands, sizeof(sr_commands) / sizeof(sr_cmd_t), SR_CHANNELS_STEREO, SR_MODE_WAKEWORD);
+    ESP_SR.begin(i2s, sr_commands, sizeof(sr_commands) / sizeof(sr_cmd_t), SR_CHANNELS_MONO, SR_MODE_WAKEWORD);
 }
 
 void loop()
