@@ -264,6 +264,17 @@ dependencies:
       registry_url: https://components.espressif.com/
       type: service
     version: 1.0.3
+  espressif/led_strip:
+    component_hash: 28c6509a727ef74925b372ed404772aeedf11cce10b78c3f69b3c66799095e2d
+    dependencies:
+    - name: idf
+      registry_url: https://components.espressif.com
+      require: private
+      version: '>=4.4'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 2.5.5
   espressif/libsodium:
     component_hash: f6e982479a2389cb6868e8fb761cf23aba6c355a8090b3e906299807775f58a3
     dependencies:
@@ -334,6 +345,7 @@ direct_dependencies:
 - espressif/esp_insights
 - espressif/esp_modem
 - espressif/esp_rainmaker
+- espressif/led_strip
 - espressif/libsodium
 - espressif/mdns
 - espressif/network_provisioning
@@ -341,6 +353,6 @@ direct_dependencies:
 - espressif/rmaker_common
 - idf
 - joltwallet/littlefs
-manifest_hash: d89357a677c9a2349b847a879fd8446c55401688d6109f9f8d069e7a88e81e05
+manifest_hash: e350a20b3397c70da4ad73b10a1911e8585b51f3131bb4fe05d426305a220199
 target: esp32s3
 version: 2.0.0

@@ -32,5 +32,16 @@
             "priority": 4
         }
     ],
-    "idf.flashType": "UART"
+    "idf.flashType": "UART",
+    "files.associations": {
+        "*.cjson": "jsonc",
+        "*.wxss": "css",
+        "*.wxs": "javascript",
+        "m_11.h": "c",
+        "*.tcc": "cpp",
+        "compare": "cpp",
+        "random": "cpp",
+        "regex": "cpp",
+        "*.inc": "cpp"
+    }
 }
