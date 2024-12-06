@@ -11,7 +11,7 @@
     "idf.openOcdConfigs": [
         "board/esp32s3-builtin.cfg"
     ],
-    "idf.portWin": "COM10",
+    "idf.portWin": "COM7",
     "idf.pythonBinPathWin": "C:\\Users\\qianj\\.espressif\\python_env\\idf5.1_py3.11_env\\Scripts\\python.exe",
     "idf.toolsPathWin": "C:\\Users\\qianj\\.espressif",
     "MicroPython.executeButton": [
@@ -42,6 +42,7 @@
         "compare": "cpp",
         "random": "cpp",
         "regex": "cpp",
-        "*.inc": "cpp"
+        "*.inc": "cpp",
+        "spi_flash_mmap.h": "c"
     }
 }
