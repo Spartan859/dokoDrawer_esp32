@@ -22,7 +22,8 @@ enum
     SR_CMD_HELLO,
 };
 static const sr_cmd_t sr_commands[] = {
-    {0, "Turn on the light", "TkN nN jc LiT"},
+    // {0, "Turn on the light", "TkN nN jc LiT"},
+    {0, "你好", "ni hao"},
 };
 
 void onSrEvent(sr_event_t event, int command_id, int phrase_id)
@@ -68,9 +69,19 @@ void setup(void)
     // bsp_spiffs_mount();
     i2s.setPins(INMP441_BCLK, INMP441_WS, -1, INMP441_DIN);
     i2s.setTimeout(1000);
-    i2s.begin(I2S_MODE_STD, 16000, I2S_DATA_BIT_WIDTH_16BIT, I2S_SLOT_MODE_MONO);
-
     ESP_SR.onEvent(onSrEvent);
+    if (!i2s.begin(I2S_MODE_STD, 16000, I2S_DATA_BIT_WIDTH_32BIT, I2S_SLOT_MODE_MONO, I2S_STD_SLOT_LEFT))
+    {
+        Serial.println("Failed to initialize I2S bus!");
+        return;
+    }
+
+    if (!i2s.configureRX(16000, I2S_DATA_BIT_WIDTH_32BIT, I2S_SLOT_MODE_MONO, I2S_RX_TRANSFORM_32_TO_16))
+    {
+        Serial.println("Failed to configure I2S RX transformation!");
+        return;
+    }
+
     ESP_SR.begin(i2s, sr_commands, sizeof(sr_commands) / sizeof(sr_cmd_t), SR_CHANNELS_MONO, SR_MODE_WAKEWORD);
 }
 
@@ -78,5 +89,5 @@ void loop()
 {
     // Serial.println("Hello, world!");
     // printf("Hello, world!\n");
-    // delay(1000);
+    delay(1000);
 }
