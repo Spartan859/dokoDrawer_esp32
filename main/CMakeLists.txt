@@ -30,7 +30,7 @@ partition_table_get_partition_info(size "--partition-name voice_data" "size")
 partition_table_get_partition_info(offset "--partition-name voice_data" "offset")
 
 if("${size}" AND "${offset}")
-    esptool_py_flash_to_partition(flash "voice_data" "${voice_data_image}")
+    # esptool_py_flash_to_partition(flash "voice_data" "${voice_data_image}")
 else()
     set(message "Failed to find model in partition table file"
                 "Please add a line(Name=voice_data, Type=data, Size=3890K) to the partition file.")

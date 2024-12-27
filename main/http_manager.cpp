@@ -71,7 +71,9 @@ void postJson(DynamicJsonDocument &jdoc)
 {
     String json;
     serializeJson(jdoc, json);
+    log_i("update json: %s\n", json.c_str());
     http.begin(client, host + upd);
+    http.addHeader("Content-Type", "application/json");
     http.POST(json);
     http.end();
 }
@@ -80,6 +82,8 @@ void getJson(DynamicJsonDocument &jdoc)
 {
     http.begin(client, host + get);
     http.GET();
-    deserializeJson(jdoc, http.getStream());
+    String json = http.getString();
+    log_i("get json: %s\n", json.c_str());
+    deserializeJson(jdoc, json);
     http.end();
 }

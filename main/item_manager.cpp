@@ -67,11 +67,12 @@ const char *ItemManager::getItemName(int id)
 {
     return items[id].name;
 }
-
+DynamicJsonDocument jdoc(4096);
 void ItemManager::uploadItems()
 {
+    // clear json
+    jdoc.clear();
     // serialize to json
-    DynamicJsonDocument jdoc(4096);
     for (int i = 0; i < numItems; i++)
     {
         JsonObject obj = jdoc.createNestedObject();
@@ -87,7 +88,8 @@ void ItemManager::uploadItems()
 
 void ItemManager::downloadItems()
 {
-    DynamicJsonDocument jdoc(4096);
+    // clear json
+    jdoc.clear();
     getJson(jdoc);
     int num = jdoc["numItems"];
     for (int i = 0; i < num; i++)

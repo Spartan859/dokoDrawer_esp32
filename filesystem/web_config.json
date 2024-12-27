@@ -1,5 +1,5 @@
 {
-    "host": "http://192.168.208.207:2736",
+    "host": "http://101.133.137.243:2736",
     "upd": "/api/v1/update_items",
     "get": "/api/v1/get_items",
     "wifi_ssid": "hoshizora",
