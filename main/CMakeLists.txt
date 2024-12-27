@@ -5,7 +5,7 @@
 #     )
 
 idf_component_register(
-    SRCS "main.cpp" "ESP_SR.cpp" "esp32-hal-sr.c" "HX711.cpp"
+    SRCS "item_manager.cpp" "I2S_MY.cpp" "SR_MY.cpp" "TTS_MY.cpp" "main.cpp" "ESP_SR.cpp" "esp32-hal-sr.c" "HX711.cpp" "http_manager.cpp"
     INCLUDE_DIRS "include"
     # REQUIRES ${requires}
 )

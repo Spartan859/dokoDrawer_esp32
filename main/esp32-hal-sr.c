@@ -431,6 +431,10 @@ esp_err_t sr_start(
   ESP_GOTO_ON_FALSE(pdPASS == ret_val, ESP_FAIL, err, "Failed create audio detect task");
   ret_val = xTaskCreatePinnedToCore(&sr_handler_task, "SR Handler Task", 6 * 1024, NULL, configMAX_PRIORITIES - 1, &g_sr_data->handle_task, 1);
   // ret_val = xTaskCreatePinnedToCore(&sr_handler_task, "SR Handler Task", 6 * 1024, NULL, configMAX_PRIORITIES - 1, &g_sr_data->handle_task, 0);
+  if (ret_val != pdPASS)
+  {
+    log_e("Task creation failed with error code: %d\n", ret_val);
+  }
   ESP_GOTO_ON_FALSE(pdPASS == ret_val, ESP_FAIL, err, "Failed create audio handler task");
 
   return ESP_OK;
@@ -494,6 +498,13 @@ esp_err_t sr_resume(void)
 {
   ESP_RETURN_ON_FALSE(NULL != g_sr_data, ESP_ERR_INVALID_STATE, "SR is not running");
   xEventGroupSetBits(g_sr_data->event_group, RESUME_FEED | RESUME_DETECT);
+  return ESP_OK;
+}
+
+esp_err_t sr_add_command(const sr_cmd_t *sr_command)
+{
+  ESP_RETURN_ON_FALSE(NULL != g_sr_data, ESP_ERR_INVALID_STATE, "SR is not running");
+  esp_mn_commands_add(sr_command->command_id, (char *)(sr_command->phoneme));
   return ESP_OK;
 }
 
