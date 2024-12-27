@@ -42,7 +42,7 @@ void ItemManager::setItem(int id, char *name, char *phoneme)
     strcpy(items[id].phoneme, phoneme);
 }
 
-void ItemManager::addItem(char *name, char *phoneme, int weight, int cnt)
+void ItemManager::addItem(const char *name, const char *phoneme, int weight, int cnt)
 {
     strcpy(items[numItems].name, name);
     strcpy(items[numItems].phoneme, phoneme);
@@ -67,11 +67,12 @@ const char *ItemManager::getItemName(int id)
 {
     return items[id].name;
 }
-DynamicJsonDocument jdoc(4096);
+
 void ItemManager::uploadItems()
 {
+    DynamicJsonDocument jdoc(4096);
     // clear json
-    jdoc.clear();
+    // jdoc.clear();
     // serialize to json
     for (int i = 0; i < numItems; i++)
     {
@@ -88,22 +89,32 @@ void ItemManager::uploadItems()
 
 void ItemManager::downloadItems()
 {
+    DynamicJsonDocument jdoc(4096);
     // clear json
-    jdoc.clear();
+    // jdoc.clear();
     getJson(jdoc);
-    int num = jdoc["numItems"];
+    // get number of items(jdoc dont have numItems)
+    int num = jdoc.size();
     for (int i = 0; i < num; i++)
     {
         JsonObject obj = jdoc[i];
         int id = obj["id"];
-        if (strlen(items[id].name) == 0)
+        String name = obj.containsKey("name") ? obj["name"].as<String>().c_str() : "";
+        String phoneme = obj.containsKey("phoneme") ? obj["phoneme"].as<String>().c_str() : "";
+        if (name.length() > 0 && phoneme.length() > 0 && strlen(items[id].phoneme) == 0)
         {
-            ESP_SR_addCommand(id, obj["name"], obj["phoneme"]);
+            log_i("add command %d:%s, %s\n", id, name.c_str(), phoneme.c_str());
+            ESP_SR_addCommand(id, name.c_str(), phoneme.c_str());
         }
-        strcpy(items[id].name, obj["name"]);
-        strcpy(items[id].phoneme, obj["phoneme"]);
-        // items[id].weight = obj["weight"];
-        // items[id].cnt = obj["cnt"];
+        if (id >= numItems)
+        {
+            addItem(name.c_str(), phoneme.c_str(), obj["weight"], obj["cnt"]);
+        }
+        else
+        {
+            strcpy(items[id].name, name.c_str());
+            strcpy(items[id].phoneme, phoneme.c_str());
+        }
     }
 }
 

@@ -505,6 +505,7 @@ esp_err_t sr_add_command(const sr_cmd_t *sr_command)
 {
   ESP_RETURN_ON_FALSE(NULL != g_sr_data, ESP_ERR_INVALID_STATE, "SR is not running");
   esp_mn_commands_add(sr_command->command_id, (char *)(sr_command->phoneme));
+  esp_mn_commands_update();
   return ESP_OK;
 }
 

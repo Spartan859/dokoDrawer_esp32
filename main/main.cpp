@@ -46,7 +46,7 @@ void setup(void)
     itemManager.setWtThreshold(WT_THR);
     // uint8_t *wav_data;
     // size_t wav_size;
-    // tts_speak("欢迎使用乐鑫语音合成", i2s_out);
+    tts_speak("欢迎使用多可智能抽屉", i2s_out);
     // Serial.println("Recording 10 seconds of audio data...");
     // wav_data = i2s.recordWAV(10, &wav_size);
     // Serial.println("Recording complete. Playing audio data in 3 seconds.");
@@ -87,7 +87,7 @@ const int STB_THR = 3;
 void updateWeights()
 {
     int wt = hx711.getWeight(10);
-    log_i("Weight: %d\n", wt);
+    // log_i("Weight: %d\n", wt);
     if (abs(wt - nowWeight) > 1)
     {
         stableCnt = 0;

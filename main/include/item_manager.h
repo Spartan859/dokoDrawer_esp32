@@ -16,15 +16,15 @@ class ItemManager
 public:
     ItemManager();
     ~ItemManager();
-    void addItemCnt(int id, int cnt);                             // add item count
-    int searchItem(int wt);                                       // search item by weight
-    void setItem(int id, char *name, char *phoneme);              // set item
-    void addItem(char *name, char *phoneme, int weight, int cnt); // add item
-    void setWtThreshold(int wtThr);                               // set weight threshold
-    int getItemCnt(int id);                                       // get item count
-    const char *getItemName(int id);                              // get item name
-    void downloadItems();                                         // download items from server
-    int getNumItems();                                            // get number of items
+    void addItemCnt(int id, int cnt);                                         // add item count
+    int searchItem(int wt);                                                   // search item by weight
+    void setItem(int id, char *name, char *phoneme);                          // set item
+    void addItem(const char *name, const char *phoneme, int weight, int cnt); // add item
+    void setWtThreshold(int wtThr);                                           // set weight threshold
+    int getItemCnt(int id);                                                   // get item count
+    const char *getItemName(int id);                                          // get item name
+    void downloadItems();                                                     // download items from server
+    int getNumItems();                                                        // get number of items
 
 private:
     void uploadItems(); // upload items to server
