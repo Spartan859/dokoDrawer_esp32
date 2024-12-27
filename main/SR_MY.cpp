@@ -11,9 +11,10 @@ enum
 {
     SR_CMD_HELLO = 100000,
 };
-static const sr_cmd_t sr_commands[] = {
+int sr_commands_len = 0;
+sr_cmd_t sr_commands[105] = {
     // {0, "Turn on the light", "TkN nN jc LiT"},
-    {100000, "你好", "ni hao"},
+    // {0, "你好", "ni hao"},
 };
 
 void onSrEvent(sr_event_t event, int command_id, int phrase_id)
@@ -32,7 +33,7 @@ void onSrEvent(sr_event_t event, int command_id, int phrase_id)
         ESP_SR.setMode(SR_MODE_WAKEWORD); // Switch back to WakeWord detection
         break;
     case SR_EVENT_COMMAND:
-        Serial.printf("Command %d Detected! %s\n", command_id, sr_commands[phrase_id].str);
+        Serial.printf("Command %d Detected!\n", command_id);
         if (command_id < itemManager.getNumItems())
         {
             if (itemManager.getItemCnt(command_id) > 0)
@@ -66,5 +67,8 @@ void ESP_SR_addCommand(int id, const char *str, const char *phoneme)
     sr_command.command_id = id;
     strncpy(sr_command.str, str, SR_CMD_STR_LEN_MAX);
     strncpy(sr_command.phoneme, phoneme, SR_CMD_PHONEME_LEN_MAX);
-    ESP_SR.addCommand(sr_command);
+    sr_commands[sr_commands_len++] = sr_command;
+    ESP_SR.end();
+    // ESP_SR.addCommand(sr_command);
+    ESP_SR.begin(i2s, sr_commands, sr_commands_len, SR_CHANNELS_MONO, SR_MODE_WAKEWORD);
 }
