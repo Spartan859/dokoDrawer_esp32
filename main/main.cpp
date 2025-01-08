@@ -44,40 +44,7 @@ void setup(void)
     ESP_SR_init();
     HX711_init();
     itemManager.setWtThreshold(WT_THR);
-    // uint8_t *wav_data;
-    // size_t wav_size;
     tts_speak("欢迎使用多可智能抽屉", i2s_out);
-    // Serial.println("Recording 10 seconds of audio data...");
-    // wav_data = i2s.recordWAV(10, &wav_size);
-    // Serial.println("Recording complete. Playing audio data in 3 seconds.");
-    // delay(3000);
-    // Serial.println("Playing audio data...");
-    // i2s_out.playWAV(wav_data, wav_size);
-
-    // if (!SPIFFS.begin(false))
-    // {
-    //     Serial.println("An Error has occurred while mounting SPIFFS");
-    //     return;
-    // }
-    // File wav_file = SPIFFS.open("/Cellphone_Alarm_Clock_II.wav", "r");
-    // if (!wav_file)
-    // {
-    //     Serial.println("Failed to open file for reading");
-    //     return;
-    // }
-    // wav_size = wav_file.size();
-    // wav_data = (uint8_t *)malloc(wav_size);
-    // if (wav_data == NULL)
-    // {
-    //     Serial.println("Failed to allocate memory for WAV data");
-    //     return;
-    // }
-    // wav_file.read(wav_data, wav_size);
-    // wav_file.close();
-    // Serial.println("Playing audio data...");
-    // i2s_out.playWAV(wav_data, wav_size);
-    // free(wav_data);
-    // HX711_init();
 }
 
 int nowWeight = 0;

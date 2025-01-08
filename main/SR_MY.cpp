@@ -58,7 +58,7 @@ void onSrEvent(sr_event_t event, int command_id, int phrase_id)
 void ESP_SR_init()
 {
     ESP_SR.onEvent(onSrEvent);
-    ESP_SR.begin(i2s, sr_commands, sizeof(sr_commands) / sizeof(sr_cmd_t), SR_CHANNELS_MONO, SR_MODE_WAKEWORD);
+    ESP_SR.begin(i2s, sr_commands, 0, SR_CHANNELS_MONO, SR_MODE_WAKEWORD);
 }
 
 void ESP_SR_addCommand(int id, const char *str, const char *phoneme)
